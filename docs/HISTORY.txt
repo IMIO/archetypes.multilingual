@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.imio2 (unreleased)
+----------------------
+
+- Nothing changed yet.
+
+
 2.0.imio1 (2015-02-19)
 ----------------------
 
