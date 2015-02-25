@@ -5,8 +5,10 @@ from plone.app.multilingual.interfaces import ILanguageIndependentFieldsManager
 from plone.app.multilingual.interfaces import ITranslationManager
 from plone.app.multilingual.subscriber import CreationEvent
 from plone.dexterity.interfaces import IDexterityContent
+from plone.memoize import ram
 from zope.component import queryAdapter
 from zope.event import notify
+from zope.globalrequest import getRequest
 from zope.lifecycleevent import Attributes
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
@@ -66,15 +68,25 @@ handler = LanguageIndependentModifier()
 class ArchetypesCreationEvent(CreationEvent):
 
     @property
-    def has_pam_old_lang_in_form(self):
-        # Archetypes content types does not have the pam_old_lang field
-        # XXX Need to be improved to have a different behavior for add and edit
-        return False
-
-    @property
     def is_translatable(self):
         return (not IObjectRemovedEvent.providedBy(self.event)
                 and not IDexterityContent.providedBy(self.obj))
+
+    def get_translation_info(self):
+        key = self.event.oldName or self.event.newName
+        return self._cached_info(key)
+
+    def cache_key(fun, self, key):
+        return key
+
+    @ram.cache(cache_key)
+    def _cached_info(self, key):
+        request = getattr(self.event.object, 'REQUEST', getRequest())
+        info = {'tg': request.get('tg'),
+                'source_language': request.get('source_language')}
+        if not info.get('tg') or not info.get('source_language'):
+            raise AttributeError
+        return info
 
 
 archetypes_creation_handler = ArchetypesCreationEvent()
