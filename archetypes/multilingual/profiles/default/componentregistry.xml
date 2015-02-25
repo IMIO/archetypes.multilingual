@@ -18,5 +18,56 @@
            zope.lifecycleevent.interfaces.IObjectModifiedEvent"
       handler="archetypes.multilingual.subscriber.handler"
       />
+
+    <subscriber
+        for="archetypes.multilingual.interfaces.IArchetypesTranslatable
+             Products.Archetypes.interfaces.IObjectInitializedEvent"
+        handler="archetypes.multilingual.subscriber.archetypes_creation_handler"/>
+    <subscriber
+        for="archetypes.multilingual.interfaces.IArchetypesTranslatable
+            zope.container.interfaces.IObjectAddedEvent"
+        handler="archetypes.multilingual.subscriber.archetypes_creation_handler"/>
+
+    <subscriber
+            for="archetypes.multilingual.interfaces.IArchetypesTranslatable
+                 zope.container.interfaces.IObjectAddedEvent"
+            handler="archetypes.multilingual.subscriber.archetypes_creation_handler"/>
+
+    <subscriber
+        for="archetypes.multilingual.interfaces.IArchetypesTranslatable
+             zope.lifecycleevent.interfaces.IObjectCopiedEvent"
+        handler="archetypes.multilingual.subscriber.archetypes_creation_handler"/>
+    <subscriber
+        for="archetypes.multilingual.interfaces.IArchetypesTranslatable
+             zope.lifecycleevent.interfaces.IObjectMovedEvent"
+        handler="archetypes.multilingual.subscriber.archetypes_creation_handler"/>
+
+
+
+    <subscriber
+        for="Products.ATContentTypes.interfaces.IATContentType
+             zope.lifecycleevent.interfaces.IObjectAddedEvent"
+        handler="plone.app.multilingual.subscriber.reindex_language_independent"/>
+
+    <subscriber
+        for="Products.ATContentTypes.interfaces.IATContentType
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="plone.app.multilingual.subscriber.reindex_language_independent"/>
+
+     <subscriber
+        for="Products.ATContentTypes.interfaces.IATContentType
+             Products.CMFCore.interfaces.IActionSucceededEvent"
+        handler="plone.app.multilingual.subscriber.reindex_language_independent"/>
+
+    <subscriber
+        for="Products.ATContentTypes.interfaces.IATContentType
+             OFS.interfaces.IObjectWillBeMovedEvent"
+         handler="plone.app.multilingual.subscriber.unindex_language_independent"/>
+
+    <subscriber
+        for="Products.ATContentTypes.interfaces.IATContentType
+             OFS.interfaces.IObjectWillBeRemovedEvent"
+        handler="plone.app.multilingual.subscriber.unindex_language_independent"/>
+
   </subscribers>
 </componentregistry>
