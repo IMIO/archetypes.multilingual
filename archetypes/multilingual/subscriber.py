@@ -62,10 +62,16 @@ class LanguageIndependentModifier(object):
                 translations_list_to_process.append(translations[language])
         return translations_list_to_process
 
+    def __name__(self):
+        return 'handler'
+
 handler = LanguageIndependentModifier()
 
 
 class ArchetypesCreationEvent(CreationEvent):
+
+    def __name__(self):
+        return 'archetypes_creation_handler'
 
     @property
     def is_translatable(self):
