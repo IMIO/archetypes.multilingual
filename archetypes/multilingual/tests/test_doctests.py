@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from archetypes.multilingual.testing import \
-    ARCHETYPESMULTILINGUAL_INTEGRATION_TESTING
+    ARCHETYPESMULTILINGUAL_FUNCTIONAL_TESTING
 from archetypes.multilingual.testing import optionflags
 from plone.testing import layered
 
 import doctest
 import unittest
 
-integration_tests = [
+functionnal_tests = [
     'languageindependentfields.txt',
     'multilingual.txt',
 ]
@@ -21,8 +21,8 @@ def test_suite():
                 package='archetypes.multilingual.tests',
                 optionflags=optionflags
             ),
-            layer=ARCHETYPESMULTILINGUAL_INTEGRATION_TESTING
-        ) for filename in integration_tests
+            layer=ARCHETYPESMULTILINGUAL_FUNCTIONAL_TESTING
+        ) for filename in functionnal_tests
     ])
 
 
