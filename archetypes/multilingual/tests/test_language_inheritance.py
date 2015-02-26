@@ -2,7 +2,7 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import _createObjectByType
 from archetypes.multilingual.testing import \
-    ARCHETYPESMULTILINGUAL_INTEGRATION_TESTING
+    ARCHETYPESMULTILINGUAL_FUNCTIONAL_TESTING
 from plone.app.multilingual.interfaces import ILanguage
 from plone.app.multilingual.interfaces import ITranslatable
 from plone.app.testing import TEST_USER_ID
@@ -10,19 +10,13 @@ from plone.app.testing import TEST_USER_NAME
 from plone.app.testing import login
 from plone.app.testing import setRoles
 
+from archetypes.multilingual.tests.utils import makeContent
 import unittest
-
-
-def makeContent(context, type_name, id='doc', **kwargs):
-    _createObjectByType(type_name, context, id=id, **kwargs)
-    obj = context[id]
-    obj.reindexObject()
-    return obj
 
 
 class TestArchetypesLanguageInheritance(unittest.TestCase):
 
-    layer = ARCHETYPESMULTILINGUAL_INTEGRATION_TESTING
+    layer = ARCHETYPESMULTILINGUAL_FUNCTIONAL_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
