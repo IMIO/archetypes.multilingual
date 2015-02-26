@@ -48,7 +48,7 @@ class TestFactory(unittest.TestCase):
         self.browser.open('{0:s}/@@create_translation?language=nl'.format(
             doc_fr.absolute_url()))
         self.assertIn(
-            'id="multilingual-add-form-is-translation"', self.browser.contents)
+            'id="babel-edit"', self.browser.contents)
 
     def test_link_between_documents(self):
         self.browser.addHeader('Authorization', auth_header)
