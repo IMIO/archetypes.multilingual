@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.imio2 (unreleased)
+2.0.imio2 (2015-03-04)
 ----------------------
 
 - Nothing changed yet.
