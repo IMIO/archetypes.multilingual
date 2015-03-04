@@ -3,7 +3,7 @@ from setuptools import find_packages
 from setuptools import setup
 import os
 
-version = '2.0.imio2'
+version = '2.0.imio3.dev0'
 
 setup(
     name='archetypes.multilingual',
