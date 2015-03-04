@@ -11,4 +11,12 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="archetypes.multilingual uninstall"
+      description="Multilingual support for Archetypes"
+      directory="profiles/uninstall"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
 </configure>

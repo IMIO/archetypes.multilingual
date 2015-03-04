@@ -33,7 +33,8 @@ setup(
         'Products.ATContentTypes',
         'plone.app.multilingual',
         'collective.monkeypatcher',
-        'Products.PloneLanguageTool'
+        'Products.PloneLanguageTool',
+        'plone.api',
         # -*- Extra requirements: -*-
     ],
     extras_require={
