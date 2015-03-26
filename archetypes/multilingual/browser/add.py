@@ -42,10 +42,14 @@ class MultilingualATAddForm(BrowserView):
             # state.setStatus('success_no_edit')
 
         if type_name in self.context.portal_factory.getFactoryTypes():
-            new_url = 'portal_factory/' + type_name + '/' + id + '/at_babel_edit'
-            new_url = '%s?tg=%s&source_language=%s' % (new_url,
-                                                       self.tg,
-                                                       self.source_language)
+            url_str = ('portal_factory/{type}/{id}/at_babel_edit?tg={tg}'
+                       '&source_language={source_language}')
+            new_url = url_str.format(
+                type=type_name,
+                id=id,
+                tg=self.tg,
+                source_language=self.source_language,
+            )
             return self.request.response.redirect(new_url)
             # state.set(status='factory',
             #           next_action='redirect_to:string:%s' % new_url)
