@@ -71,3 +71,38 @@ class TestFactory(unittest.TestCase):
 
         translations = ITranslationManager(doc_fr).get_translations()
         self.assertTrue("nl" in translations.keys(), 'nl language should be in translations')
+
+    def test_document_in_subfolder(self):
+        self.browser.addHeader('Authorization', auth_header)
+
+        folder_fr_id = self.lrf_fr.invokeFactory('Folder', 'fr-folder')
+        folder_fr = self.lrf_fr[folder_fr_id]
+        doc_fr_id = folder_fr.invokeFactory('Document', 'fr-document')
+        doc_fr = folder_fr[doc_fr_id]
+        transaction.commit()
+
+        self.browser.open('{0:s}/@@create_translation?language=nl'.format(
+            folder_fr.absolute_url()))
+        self.browser.getControl(name='title').value = 'nl-folder'
+        self.browser.getControl(name='form.button.save').click()
+        folder_nl = self.lrf_nl['nl-folder']
+        self.assertEqual(ILanguage(folder_nl).get_language(), 'nl')
+        translations = ITranslationManager(folder_nl).get_translations()
+        self.assertTrue('fr' in translations.keys(),
+                        'fr language should be in translations')
+        translations = ITranslationManager(folder_fr).get_translations()
+        self.assertTrue('nl' in translations.keys(),
+                        'nl language should be in translations')
+
+        self.browser.open('{0:s}/@@create_translation?language=nl'.format(
+            doc_fr.absolute_url()))
+        self.browser.getControl(name='title').value = 'nl-document'
+        self.browser.getControl(name='form.button.save').click()
+        doc_nl = folder_nl['nl-document']
+        self.assertEqual(ILanguage(doc_nl).get_language(), 'nl')
+        translations = ITranslationManager(doc_nl).get_translations()
+        self.assertTrue('fr' in translations.keys(),
+                        'fr language should be in translations')
+        translations = ITranslationManager(doc_fr).get_translations()
+        self.assertTrue('nl' in translations.keys(),
+                        'nl language should be in translations')
