@@ -78,12 +78,12 @@ class ArchetypesCreationEvent(CreationEvent):
         return (not IObjectRemovedEvent.providedBy(self.event)
                 and not IDexterityContent.providedBy(self.obj))
 
-    def get_translation_info(self):
-        key = self.event.oldName or self.event.newName
-        return self._cached_info(key)
-
     def cache_key(fun, self, key):
-        return key
+        return (fun, key)
+
+    def get_translation_info(self):
+        key = getattr(self.event, 'oldName') or self.event.newName
+        return self._cached_info(key)
 
     @ram.cache(cache_key)
     def _cached_info(self, key):
