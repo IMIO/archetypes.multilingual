@@ -21,76 +21,9 @@
 
         function distance(a, b) {
             return b.position().top - a.position().top - a.height();
-        }/*/
-        if (destination.is(":visible")) {
-            original.show();
-            // reset fields
-            if (original.css("position") === "relative") {
-                original.css(default_props);
-            }
-            if (destination.css("position") === "relative") {
-                destination.css(default_props);
-            }
-            original_top = original.position().top;
-
-            // Make images smaller
-            images = original.find('img');
-            images.each(function (index, img) {
-                var qimg = $(img);
-                if (qimg.width() > original.width()) {
-                    qimg.width(original.width() * 0.8);
-                }
-            });
-            destination_top = destination.position().top;
-            shift = Math.abs(original_top - destination_top);
-            if (original_top > destination_top) {
-                destination_padding = shift;
-            } else {
-                original_padding = shift;
-            }
-
-            // The next calculation of padding is necessary if both elements
-            // have to be shifted down.
-            
-            
-            if (!first && original.prev().is(":visible")) {
-                // Calulate distance between bottom of prev element and top
-                // of current element. add Padding. If > 0, add to more_padding
-                new_distance = distance(original.prev(), original);
-                new_distance += original_padding;
-                if (new_distance < padding) {
-                    more_padding += padding - new_distance;
-                }
-                new_distance = distance(destination.prev(), destination);
-                new_distance += destination_padding + more_padding;
-                if (new_distance < padding) {
-                    more_padding += padding - new_distance;
-                }
-            }
-            original_padding += more_padding;
-            destination_padding += more_padding;
-            if (original_padding) {
-                original.css({
-                    position: 'relative',
-                    top: original_padding
-                });
-            } else {
-                original.css(default_props);
-            }
-            if (destination_padding) {
-                destination.css({
-                    position: 'relative',
-                    top: destination_padding
-                });
-            } else {
-                destination.css(default_props);
-            }
-
-        } else {
-            //original.hide();
-            //destination.css(default_props);
-            //original.css(default_props);
-        }*/
+        }
+        // ... Removing original plone.app.multilingual's code that crash with archetypes.
+                
         // With all that padding, the form might need to be pushed down in
         // some cases.
         $([original, destination]).each(function (index, item) {
@@ -98,7 +31,6 @@
             var curr_item = $(item),
                 outer_padding = 0,
                 parent = curr_item.parent();
-                console.log("olé");
                 // Test for archetype item traduction
                 if (curr_item.position() != undefined) {
                     outer_padding = Math.max(curr_item.position().top + curr_item.height() - (parent.position().top + parent.height()) + padding, 0);                //code
