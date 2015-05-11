@@ -7,7 +7,9 @@
     xmlns:z3c="http://namespaces.zope.org/z3c">
 
      <!-- It comes from a translation AT with Portal Factory -->
-
+      <browser:resourceDirectory
+          name="archetypes.multilingual.javascript"
+          directory="javascript"/>
       <browser:viewlet
           name="plone.app.multilingual.add-form-is-at-translation"
           for="*"
